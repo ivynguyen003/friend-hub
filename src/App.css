@@ -109,8 +109,11 @@ button{
 
 .room-active{
  grid-column:2/span 5;
- grid-row:4/span 3;
+ grid-row:4/span 2;
+ margin-bottom: 1rem;
 }
+
+
 
 .message{
   grid-row:6;
@@ -151,4 +154,9 @@ ul:first-child{
 
 li{
  text-align: center;
+}
+
+.user-name{
+  font-weight: bold;
+  color: rgb(187, 122, 233);
 }
