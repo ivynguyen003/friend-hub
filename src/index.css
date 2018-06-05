@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Ubuntu');
+
+html{
+    background: linear-gradient(-120deg,#D4D6F5, #E8D9FA,#B5AAEF) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Ubuntu';
+}
