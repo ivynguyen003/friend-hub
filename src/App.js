@@ -5,18 +5,15 @@ import User from "./components/User";
 import * as firebase from "firebase";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
-require("dotenv").config();
 
 var config = {
-  apiKey: process.env.REACT_APP_FIREBASE,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  apiKey: "AIzaSyAIAFENMjKyeMklX30r5GvmC5PIK1RmDJM",
+  authDomain: "chat-app-ivy.firebaseapp.com",
+  databaseURL: "https://chat-app-ivy.firebaseio.com",
   projectId: "chat-app-ivy",
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_ID
+  storageBucket: "chat-app-ivy.appspot.com",
+  messagingSenderId: "814466748811"
 };
-
-console.log(process.env.REACT_APP_DATABASE_URL);
 
 firebase.initializeApp(config);
 
