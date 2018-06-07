@@ -1,51 +1,54 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class MessageList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      messages: [{
-        content: '',
-        roomId: '',
-        sentAt: '',
-        username: ''
-      }]
-    }
+      messages: [
+        {
+          content: "",
+          roomId: "",
+          sentAt: "",
+          username: ""
+        }
+      ]
+    };
     this.state.messages.sentAt = this.props.firebase.database.ServerValue.TIMESTAMP;
-    this.messagingRef = this.props.firebase.database().ref('messages');
+    this.messagingRef = this.props.firebase.database().ref("messages");
   }
 
   componentDidMount() {
-    this.messagingRef.on('child_added', snapshot => {
+    this.messagingRef.on("child_added", snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat(message) });
-      console.log(this.state.messages)
-    })
+      console.log(this.state.messages.username);
+    });
   }
-
 
   render() {
     const activeKey = this.props.activeKey;
     return (
       <section>
         <div>
-          {
-            this.state.messages.map((message, index) => {
-              if (activeKey === "") {
-                return null;
-              } else if (activeKey == message.roomId) {
-                return (
-                  <p key={index} className="message">{message.content}</p>
-                )
-
-              }
+          {this.state.messages.map((message, index) => {
+            if (activeKey === "") {
+              return null;
+            } else if (activeKey == message.roomId) {
+              return (
+                <section className="message-display">
+                  <p className="user-name">
+                    {message.username}
+                  </p>
+                  <p key={index} className="message">
+                    {message.content}
+                  </p>
+                </section>
+              );
             }
-            )
-          }
+          })}
         </div>
       </section>
-
     );
   }
 }

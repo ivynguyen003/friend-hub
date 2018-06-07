@@ -23,7 +23,8 @@ class App extends Component {
     this.state = {
       activeRoom: "",
       activeKey: "",
-      user: ""
+      user: "",
+      userName:""
     };
   }
 

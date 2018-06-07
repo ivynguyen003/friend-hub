@@ -20,7 +20,7 @@ class User extends Component {
 
   render() {
     return <section className="user-auth">
-        <h3 className="user-name">{this.props.userName}</h3>
+        <h3 className="user-name">{this.props.displayName}</h3>
         <button className="sign-in" onClick={this.handleSignIn // type="submit"
           }>
           Sign In
