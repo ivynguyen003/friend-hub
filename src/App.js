@@ -51,19 +51,18 @@ class App extends Component {
         <section className="room-display">
           <section className="user-login">
             <User
-              userName={this.state.user.displayName}
+              displayName={this.state.user.displayName}
               setUser={this.setUser}
               // signIn={this.handleSignIn}
               firebase={firebase}
               // signOut={this.handleSignOut}
-
             />
           </section>
           <section className="room-active">
             <h1>{this.state.activeRoom.name}</h1>
           </section>
           <section className="message">
-            <MessageList firebase={firebase} activeKey={this.state.activeKey} />
+            <MessageList firebase={firebase} activeKey={this.state.activeKey} userName={this.state.userName}/>
           </section>
         </section>
       </div>

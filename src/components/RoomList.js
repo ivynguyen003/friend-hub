@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import UserImage from "../profile.png";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import faUserPlus from "@fortawesome/fontawesome-free-solid/faUserPlus";
-import "./RoomList.css";
 import "../App.css";
 
 class RoomList extends Component {
@@ -45,7 +44,7 @@ class RoomList extends Component {
         <div className="header">
           <img className="user" src={UserImage} alt={"userimage"} />
         </div>
-        <div>
+        <section>
           <form onSubmit={e => this.handleSubmit(e)}>
             <input
               name="text"
@@ -61,7 +60,7 @@ class RoomList extends Component {
               />
             </button>
           </form>
-        </div>
+        </section>
         <section className="room-list">
           {this.state.rooms.map((room, index) => (
             <ul className="each-room" key={index}>

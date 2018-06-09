@@ -160,3 +160,9 @@ li{
   font-weight: bold;
   color: rgb(187, 122, 233);
 }
+
+
+.user{
+  width: 60%;
+  height: 60%;
+}
