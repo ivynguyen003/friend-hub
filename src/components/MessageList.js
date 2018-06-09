@@ -3,16 +3,7 @@ import React, { Component } from "react";
 class MessageList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      messages: [
-        {
-          content: "",
-          roomId: "",
-          sentAt: "",
-          username: ""
-        }
-      ]
-    };
+    this.state = { messages: [{ content: "", roomId: "", sentAt: "", username: "", newMessage: "" }] };
     this.state.messages.sentAt = this.props.firebase.database.ServerValue.TIMESTAMP;
     this.messagingRef = this.props.firebase.database().ref("messages");
   }
@@ -21,30 +12,50 @@ class MessageList extends Component {
     this.messagingRef.on("child_added", snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
-      this.setState({ messages: this.state.messages.concat(message), content:"" });
-      console.log(this.state.messages.username);
+      this.setState({
+        messages: this.state.messages.concat(message),
+        // content: ""
+        
+      });
+      // console.log(this.state.messages.username);
     });
   }
 
-  handleSubmit(e){
+  createMessage(message){
+    this.messagingRef.push({
+          content: this.state.value,
+          rommID: this.props.activeRoom.key,
+          username: this.props.user ? this.props.user.displayName : "Guest",
+          sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+          newMessage:''
+  })
+
+}
+
+  handleSubmit(e) {
     e.preventDefault();
-    if(!this.state.name){
+    if (!this.state.name) {
       return;
     }
-    this.messagingRef.push({content:this.state.content})
+    this.createMessage(this.messagingRef.push({
+      messages:this.state.newMessage
+    }))
   }
 
-  handleChange(e){
-    this.setState({content: e.target.value})
+  handleChange(e) {
+    this.setState({ newMessage: e.target.value });
+        
+    
   }
 
-  userName(user){
-    this.props.userName(user);
-  }
+  // userName(user) {
+  //   this.props.userName(user);
+  // }
 
   render() {
     const activeKey = this.props.activeKey;
-    return <section>
+    return (
+    <section>
         <div>
           {this.state.messages.map((message, index) => {
             if (activeKey === "") {
@@ -53,26 +64,23 @@ class MessageList extends Component {
               return <section className="message-display">
                   <p className="user-name">{message.username}</p>
                   <p key={index} className="message">
-                    {message.content}
+                    {message.content}{message.sentAt}
                   </p>
-                </section>;
+                </section>
             }
           })}
         </div>
         <section className="message-form">
           <form onSubmit={e => this.handleSubmit(e)}>
-            <input type="text" onChange={e => this.handleChange(e)} />
+            <input type="text" onChange={e => this.handleChange(e)} value={this.state.value}/>
           </form>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={() => this.createMessage}>Submit</button>
         </section>
-        <section className="message-list">
-        {this.state.messages.map((message,index)=>(
-          <ul className="each-message" key={index}>
-          <li onClick={() => this.props.setUser(user)}>{message.content}</li>
-          </ul>
-        ))}
+        <section className="message-display">
+          {this.state.newMessage}{this.state.username}
         </section>
       </section>
+      );
   }
 }
 

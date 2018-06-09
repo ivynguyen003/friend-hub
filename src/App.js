@@ -42,31 +42,25 @@ class App extends Component {
   };
 
   render() {
-    return (
-      <div className="room-container">
+    return <div className="room-container">
         <aside className="side-bar">
           <h1>Let's Chat</h1>
           <RoomList firebase={firebase} activeRoom={this.selectRoom} />
         </aside>
         <section className="room-display">
           <section className="user-login">
-            <User
-              displayName={this.state.user.displayName}
-              setUser={this.setUser}
-              // signIn={this.handleSignIn}
-              firebase={firebase}
+            <User displayName={this.state.user.displayName} setUser={this.setUser} // signIn={this.handleSignIn}
+              firebase={firebase} />
               // signOut={this.handleSignOut}
-            />
           </section>
           <section className="room-active">
             <h1>{this.state.activeRoom.name}</h1>
           </section>
           <section className="message">
-            <MessageList firebase={firebase} activeKey={this.state.activeKey} userName={this.state.userName}/>
+            <MessageList firebase={firebase} activeKey={this.state.activeKey} displayName={this.state.user.displayName} setUser={this.setUser} />
           </section>
         </section>
-      </div>
-    );
+      </div>;
   }
 }
 
