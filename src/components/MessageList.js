@@ -4,14 +4,15 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        {
+      messages: [],
+      message:{
           content: "",
           roomId: "",
           sentAt: "",
           username: ""
-        }
-      ]
+        },
+      newMessage:""
+      
     };
     this.state.messages.sentAt = this.props.firebase.database.ServerValue.TIMESTAMP;
     this.messagingRef = this.props.firebase.database().ref("messages");
@@ -25,6 +26,29 @@ class MessageList extends Component {
       console.log(this.state.messages.username);
     });
   }
+
+  newMessage=(messageContent)=>{
+    this.messagingRef.push({
+      username:!this.props.user ? 'guest': this.props.user.displayName,
+      roomId:this.props.activeKey,
+      newMessage:messageContent
+    });
+  }
+
+
+  handleChange=(e)=>{
+    this.setState({ newMessage: e.target.value });
+    console.log(this.state.newMessage);
+  }
+
+  handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log('handlesubmit');
+    this.newMessage(this.state.newMessage);
+    this.setState({newMessage:''});
+  }
+
+
 
   render() {
     const activeKey = this.props.activeKey;
@@ -41,13 +65,29 @@ class MessageList extends Component {
                     {message.username}
                   </p>
                   <p key={index} className="message">
-                    {message.content}
+                    {message.content} {message.newMessage}
                   </p>
                 </section>
               );
             }
           })}
         </div>
+        <section className="message-form">
+          <form>
+            <input
+              type="text"
+              onChange={e => this.handleChange(e)}
+              value={this.state.value}
+            />
+          </form>
+          <button type="submit" onClick={e => this.handleSubmit(e)}>
+            Submit
+          </button>
+        </section>
+        <section className="message-display">
+          {this.state.newMessage}
+          {this.state.username}
+        </section>
       </section>
     );
   }
