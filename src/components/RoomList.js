@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UserImage from "../profile.png";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import faUserPlus from "@fortawesome/fontawesome-free-solid/faUserPlus";
+import faTimes from "@fortawesome/fontawesome-free-solid/faTimes";
 import "./RoomList.css";
 import "../App.css";
 
@@ -39,38 +40,38 @@ class RoomList extends Component {
     this.props.activeRoom(room);
   }
 
+  deleteRoom(key){
+    this.props.deleteRoom(key);
+  }
+
   render() {
-    return (
-      <section>
+    return <section>
         <div className="header">
           <img className="user" src={UserImage} alt={"userimage"} />
         </div>
         <div>
           <form onSubmit={e => this.handleSubmit(e)}>
-            <input
-              name="text"
-              value={this.state.name}
-              onChange={e => this.handleChange(e)}
-            />
+            <input name="text" value={this.state.name} onChange={e => this.handleChange(e)} />
             <button type="submit">
-              <FontAwesomeIcon
-                icon={faUserPlus}
-                pulse
-                className="search"
-                transform="grow-6"
-              />
+              <FontAwesomeIcon icon={faUserPlus} pulse className="search" transform="grow-6" />
             </button>
           </form>
         </div>
         <section className="room-list">
           {this.state.rooms.map((room, index) => (
             <ul className="each-room" key={index}>
-              <li onClick={() => this.props.activeRoom(room)}>{room.name}</li>
+              <li onClick={() => this.props.activeRoom(room)}>
+                {room.name}
+              </li>
+              <button onClick={(key)=>this.props.deleteRoom(key)} value={index}>
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                  />
+              </button>
             </ul>
           ))}
         </section>
-      </section>
-    );
+      </section>;
   }
 }
 

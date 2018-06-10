@@ -42,16 +42,17 @@ class App extends Component {
   };
 
   // deleteRoom = (key)=>{
-  //   const roomKey = this.state.activeKey;
-  //   activeRoom[key]= null;
-  //   this.setState({activeRoom});
+  //  const selectRoom = this.state.activeRoom;
+  //  const value = selectRoom.target.value;
+  //  delete selectRoom[value];
+  // //  this.setState({activeRoom:selectRoom});
   // } 
 
   render() {
     return <div className="room-container">
         <aside className="side-bar">
           <h1>Let's Chat</h1>
-          <RoomList firebase={firebase} activeRoom={this.selectRoom} />
+          <RoomList firebase={firebase} activeRoom={this.selectRoom} deleteRoom={this.deleteRoom} />
         </aside>
         <section className="room-display">
           <section className="user-login">
