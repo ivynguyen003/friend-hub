@@ -48,8 +48,6 @@ class MessageList extends Component {
     this.setState({newMessage:''});
   }
 
-
-
   render() {
     const activeKey = this.props.activeKey;
     return (
@@ -83,10 +81,6 @@ class MessageList extends Component {
           <button type="submit" onClick={e => this.handleSubmit(e)}>
             Submit
           </button>
-        </section>
-        <section className="message-display">
-          {this.state.newMessage}
-          {this.state.username}
         </section>
       </section>
     );
