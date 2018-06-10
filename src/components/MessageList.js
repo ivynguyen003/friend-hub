@@ -43,6 +43,9 @@ class MessageList extends Component {
 
   handleSubmit=(e)=>{
     e.preventDefault();
+    if(!this.state.newMessage){
+      return;
+    }
     console.log('handlesubmit');
     this.newMessage(this.state.newMessage);
     this.setState({newMessage:''});
@@ -50,40 +53,30 @@ class MessageList extends Component {
 
   render() {
     const activeKey = this.props.activeKey;
-    return (
-      <section>
+    return <section>
         <div>
           {this.state.messages.map((message, index) => {
             if (activeKey === "") {
               return null;
             } else if (activeKey == message.roomId) {
-              return (
-                <section className="message-display">
-                  <p className="user-name">
-                    {message.username}
-                  </p>
+              return <section className="message-display">
+                  <p className="user-name">{message.username}</p>
                   <p key={index} className="message">
                     {message.content} {message.newMessage}
                   </p>
-                </section>
-              );
+                </section>;
             }
           })}
         </div>
         <section className="message-form">
-          <form>
-            <input
-              type="text"
-              onChange={e => this.handleChange(e)}
-              value={this.state.value}
-            />
+          <form onSubmit={e => this.handleSubmit(e)}>
+            <input type="text" onChange={e => this.handleChange(e)} value={this.state.newMessage} />
           </form>
           <button type="submit" onClick={e => this.handleSubmit(e)}>
             Submit
           </button>
         </section>
-      </section>
-    );
+      </section>;
   }
 }
 
