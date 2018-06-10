@@ -21,25 +21,29 @@ class MessageList extends Component {
     });
   }
 
-  createMessage(message){
-    this.messagingRef.push({
-          content: this.state.value,
-          rommID: this.props.activeRoom.key,
-          username: this.props.user ? this.props.user.displayName : "Guest",
-          sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-          newMessage:''
-  })
+//   createMessage(message){
+//     this.messagingRef.push({
+//           content: this.state.value,
+//           rommID: this.props.activeRoom.key,
+//           username: this.props.user ? this.props.user.displayName : "Guest",
+//           sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+//           newMessage:''
+//   })
 
-}
+// }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     if (!this.state.name) {
       return;
     }
-    this.createMessage(this.messagingRef.push({
-      messages:this.state.newMessage
-    }))
+  this.messagingRef.push({
+    content: this.state.value,
+    rommID: this.props.activeRoom.key,
+    username: this.props.user ? this.props.user.displayName : "Guest",
+    sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+    newMessage: ""
+  });
   }
 
   handleChange(e) {
@@ -74,7 +78,7 @@ class MessageList extends Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             <input type="text" onChange={e => this.handleChange(e)} value={this.state.value}/>
           </form>
-          <button type="submit" onClick={() => this.createMessage}>Submit</button>
+          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
         </section>
         <section className="message-display">
           {this.state.newMessage}{this.state.username}
