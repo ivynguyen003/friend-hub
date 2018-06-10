@@ -38,8 +38,14 @@ class App extends Component {
   selectRoom = room => {
     this.setState({ activeKey: room.key });
     this.setState({ activeRoom: room });
-    console.log(this);
+    console.log(this.state.activeRoom);
   };
+
+  // deleteRoom = (key)=>{
+  //   const roomKey = this.state.activeKey;
+  //   activeRoom[key]= null;
+  //   this.setState({activeRoom});
+  // } 
 
   render() {
     return <div className="room-container">
