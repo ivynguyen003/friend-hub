@@ -20,8 +20,16 @@ class RoomList extends Component {
     this.roomsRef.on("child_added", snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
-      this.setState({ rooms: this.state.rooms.concat(room), name: "" });
+      this.setState({
+        rooms: this.state.rooms.concat(room),
+        name: ""
+      });
     });
+    this.roomsRef.on("child_removed", snapshot => {
+      this.setState({
+        rooms: this.state.rooms.filter( (room) => room.key !== snapshot.key )
+      })
+    })
   }
 
   handleSubmit(e) {
@@ -41,12 +49,11 @@ class RoomList extends Component {
     console.log(room);
   }
 
-  deleteRoom(index) {
-    const rooms = [...this.state.rooms];
-    this.setState({rooms});
-    console.log('delete room')
-    console.log(rooms[index]);
-    console.log(index.target.value)
+  deleteRoom(room) {
+    this.roomsRef.child(room.key).remove();
+    // const roomFilter = rooms.filter((room, index) => index !== e);
+    // this.setState({ rooms: roomFilter });
+    // console.log(rooms);
   }
 
   render() {
@@ -76,7 +83,7 @@ class RoomList extends Component {
           {this.state.rooms.map((room, index) => (
             <ul className="each-room" key={index}>
               <li onClick={() => this.props.activeRoom(room)}>{room.name}</li>
-              <button onClick={index => this.deleteRoom(index)}>
+              <button onClick={() => this.deleteRoom(room)}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
             </ul>
