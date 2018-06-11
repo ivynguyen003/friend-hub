@@ -38,40 +38,52 @@ class RoomList extends Component {
 
   activeRoom(room) {
     this.props.activeRoom(room);
+    console.log(room);
   }
 
-  deleteRoom(key){
-    this.props.deleteRoom(key);
+  deleteRoom(index) {
+    const rooms = [...this.state.rooms];
+    this.setState({rooms});
+    console.log('delete room')
+    console.log(rooms[index]);
+    console.log(index.target.value)
   }
 
   render() {
-    return <section>
+    return (
+      <section>
         <div className="header">
           <img className="user" src={UserImage} alt={"userimage"} />
         </div>
         <div>
           <form onSubmit={e => this.handleSubmit(e)}>
-            <input name="text" value={this.state.name} onChange={e => this.handleChange(e)} />
+            <input
+              name="text"
+              value={this.state.name}
+              onChange={e => this.handleChange(e)}
+            />
             <button type="submit">
-              <FontAwesomeIcon icon={faUserPlus} pulse className="search" transform="grow-6" />
+              <FontAwesomeIcon
+                icon={faUserPlus}
+                pulse
+                className="search"
+                transform="grow-6"
+              />
             </button>
           </form>
         </div>
         <section className="room-list">
           {this.state.rooms.map((room, index) => (
             <ul className="each-room" key={index}>
-              <li onClick={() => this.props.activeRoom(room)}>
-                {room.name}
-              </li>
-              <button onClick={(key)=>this.props.deleteRoom(key)} value={index}>
-                  <FontAwesomeIcon
-                    icon={faTimes}
-                  />
+              <li onClick={() => this.props.activeRoom(room)}>{room.name}</li>
+              <button onClick={index => this.deleteRoom(index)}>
+                <FontAwesomeIcon icon={faTimes} />
               </button>
             </ul>
           ))}
         </section>
-      </section>;
+      </section>
+    );
   }
 }
 
