@@ -23,15 +23,11 @@ class App extends Component {
     this.state = {
       activeRoom: "",
       activeKey: "",
-      user: "",
-      userName:""
+      user: ""
     };
   }
 
   setUser = user => {
-    // const userName = {...this.state.user};
-    const userName = this.state.user.displayName;
-    console.log(user);
     this.setState({ user });
   };
 
@@ -41,15 +37,11 @@ class App extends Component {
     console.log(this.state.activeRoom);
   };
 
-  deleteRoom = room =>{
-   const roomKey = this.state.activeKey;
-  } 
-
   render() {
     return <div className="room-container">
         <aside className="side-bar">
           <h1>Let's Chat</h1>
-          <RoomList firebase={firebase} activeRoom={this.selectRoom} deleteRoom = {this.deleteRoom}/>
+          <RoomList firebase={firebase} activeRoom={this.selectRoom}/>
         </aside>
         <section className="room-display">
           <section className="user-login">
